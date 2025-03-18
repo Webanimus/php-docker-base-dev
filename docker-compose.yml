@@ -27,7 +27,9 @@ services:
 
   # Add php-fpm + nginx
   php-fpm:
-    image: php:7.4-fpm
+    build:
+      context: .
+      dockerfile: php.dockerfile
     container_name: php-fpm-lamanu
     ports:
       - 9000:9000
@@ -36,6 +38,8 @@ services:
     volumes:
       - ./www:/var/www/html
     restart: always
+    depends_on:
+      - mysql
 
   nginx:
     image: nginx:alpine
